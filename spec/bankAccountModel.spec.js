@@ -2,7 +2,7 @@ const BankAccountModel = require("../lib/bankAccountModel");
 
 let bankAccountModel;
 
-describe("bankAccountModel", () => {
+describe("bankAccountModel class", () => {
   beforeEach(() => {
     bankAccountModel = new BankAccountModel();
   });
@@ -30,9 +30,9 @@ describe("bankAccountModel", () => {
     };
     bankAccountModel.saveToModel(transactionObject1);
     bankAccountModel.saveToModel(transactionObject2);
-    expect(bankAccountModel.loadFromModel).toEqual([
-      transactionModel1,
-      transactionModel2,
+    expect(bankAccountModel.loadFromModel()).toEqual([
+      transactionObject1,
+      transactionObject2,
     ]);
   });
 });
