@@ -1,4 +1,3 @@
-const { default: JSDOMEnvironment } = require("jest-environment-jsdom");
 const BankAccountController = require("../lib/bankAccountController");
 
 let bankAccountController, mockBankAccountModel;
@@ -14,7 +13,11 @@ describe("BankAccountController class", () => {
       transactionDate: new Date(2022, 4, 4),
       transactionType: "deposit",
     };
-    bankAccountController.transaction("deposit", 10.0, new Date(2022, 4, 4));
+    bankAccountController.makeTransaction(
+      "deposit",
+      10.0,
+      new Date(2022, 4, 4)
+    );
     expect(mockBankAccountModel.saveToModel).toHaveBeenCalledWith(
       transactionObject
     );
@@ -27,7 +30,9 @@ describe("BankAccountController class", () => {
       transactionType: "deposit",
     };
     expect(
-      bankAccountController.transactionIntoStatementString(transactionObject)
+      bankAccountController.makeTransactionIntoStatementString(
+        transactionObject
+      )
     ).toBe("04/05/2022 || 100.00 || || 100.00");
   });
 
@@ -38,7 +43,9 @@ describe("BankAccountController class", () => {
       transactionType: "withdraw",
     };
     expect(
-      bankAccountController.transactionIntoStatementString(transactionObject)
+      bankAccountController.makeTransactionIntoStatementString(
+        transactionObject
+      )
     ).toBe("05/05/2022 || || 80.00 || -80.00");
   });
 
@@ -54,10 +61,14 @@ describe("BankAccountController class", () => {
       transactionType: "withdraw",
     };
     expect(
-      bankAccountController.transactionIntoStatementString(transactionObject1)
+      bankAccountController.makeTransactionIntoStatementString(
+        transactionObject1
+      )
     ).toBe("04/05/2022 || 100.00 || || 100.00");
     expect(
-      bankAccountController.transactionIntoStatementString(transactionObject2)
+      bankAccountController.makeTransactionIntoStatementString(
+        transactionObject2
+      )
     ).toBe("05/05/2022 || || 80.00 || 20.00");
   });
 
