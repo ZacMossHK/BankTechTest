@@ -10,24 +10,20 @@ describe("BankAccountController class", () => {
   it("makes a transaction", () => {
     const transactionObject = {
       amount: 10.0,
-      transactionDate: new Date(2022, 4, 4),
-      transactionType: "deposit",
+      date: new Date(2022, 4, 4),
+      type: "credit",
     };
-    bankAccountController.makeTransaction(
-      "deposit",
-      10.0,
-      new Date(2022, 4, 4)
-    );
+    bankAccountController.makeTransaction("credit", 10.0, new Date(2022, 4, 4));
     expect(mockBankAccountModel.saveToModel).toHaveBeenCalledWith(
       transactionObject
     );
   });
 
-  it("returns a deposit transaction as a statement string", () => {
+  it("returns a credit transaction as a statement string", () => {
     const transactionObject = {
       amount: 100.0,
-      transactionDate: new Date(2022, 4, 4),
-      transactionType: "deposit",
+      date: new Date(2022, 4, 4),
+      type: "credit",
     };
     expect(
       bankAccountController.makeTransactionIntoStatementString(
@@ -36,11 +32,11 @@ describe("BankAccountController class", () => {
     ).toBe("04/05/2022 || 100.00 || || 100.00");
   });
 
-  it("returns a withdraw transaction as a statement string", () => {
+  it("returns a debit transaction as a statement string", () => {
     const transactionObject = {
       amount: 80.0,
-      transactionDate: new Date(2022, 4, 5),
-      transactionType: "withdraw",
+      date: new Date(2022, 4, 5),
+      type: "debit",
     };
     expect(
       bankAccountController.makeTransactionIntoStatementString(
@@ -49,16 +45,16 @@ describe("BankAccountController class", () => {
     ).toBe("05/05/2022 || || 80.00 || -80.00");
   });
 
-  it("returns two withdraw transactions with a balance reflecting the transactions", () => {
+  it("returns two debit transactions with a balance reflecting the transactions", () => {
     const transactionObject1 = {
       amount: 100.0,
-      transactionDate: new Date(2022, 4, 4),
-      transactionType: "deposit",
+      date: new Date(2022, 4, 4),
+      type: "credit",
     };
     const transactionObject2 = {
       amount: 80.0,
-      transactionDate: new Date(2022, 4, 5),
-      transactionType: "withdraw",
+      date: new Date(2022, 4, 5),
+      type: "debit",
     };
     expect(
       bankAccountController.makeTransactionIntoStatementString(
@@ -75,8 +71,8 @@ describe("BankAccountController class", () => {
   it("prints the statement with one transaction", () => {
     const transactionObject = {
       amount: 10.0,
-      transactionDate: new Date(2022, 4, 4),
-      transactionType: "deposit",
+      date: new Date(2022, 4, 4),
+      type: "credit",
     };
     mockBankAccountModel.loadFromModel.mockReturnValueOnce([transactionObject]);
     expect(bankAccountController.printStatement()).toBe(
@@ -88,13 +84,13 @@ describe("BankAccountController class", () => {
   it("prints the statement with two transactions", () => {
     const transactionObject1 = {
       amount: 100.0,
-      transactionDate: new Date(2022, 4, 4),
-      transactionType: "deposit",
+      date: new Date(2022, 4, 4),
+      type: "credit",
     };
     const transactionObject2 = {
       amount: 80.0,
-      transactionDate: new Date(2022, 4, 5),
-      transactionType: "withdraw",
+      date: new Date(2022, 4, 5),
+      type: "debit",
     };
     mockBankAccountModel.loadFromModel.mockReturnValueOnce([
       transactionObject1,

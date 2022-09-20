@@ -10,8 +10,8 @@ describe("bankAccountModel class", () => {
   it("saves an object to the model", () => {
     const transactionObject = {
       amount: 10.0,
-      transactionDate: new Date(2022, 4, 4),
-      transactionType: "deposit",
+      date: new Date(2022, 4, 4),
+      type: "credit",
     };
     bankAccountModel.saveToModel(transactionObject);
     expect(bankAccountModel.loadFromModel()).toEqual([transactionObject]);
@@ -20,13 +20,13 @@ describe("bankAccountModel class", () => {
   it("saves two objects to the model", () => {
     const transactionObject1 = {
       amount: 10.0,
-      transactionDate: new Date(2022, 4, 4),
-      transactionType: "deposit",
+      date: new Date(2022, 4, 4),
+      type: "credit",
     };
     const transactionObject2 = {
       amount: 5.0,
-      transactionDate: new Date(2022, 4, 5),
-      transactionType: "withdraw",
+      date: new Date(2022, 4, 5),
+      type: "debit",
     };
     bankAccountModel.saveToModel(transactionObject1);
     bankAccountModel.saveToModel(transactionObject2);
