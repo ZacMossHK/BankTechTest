@@ -18,7 +18,15 @@ describe("BankAccountController class", () => {
   });
 
   it("makes a transaction", () => {
-    bankAccountController.handleNewTransaction(
+    const transactionObject = {
+      amount: 10.0,
+      date: new Date(2022, 4, 4),
+      type: "credit",
+    };
+    mockHandleTransaction.makeTransaction.mockReturnValueOnce(
+      transactionObject
+    );
+    bankAccountController.makeNewTransaction(
       "credit",
       10.0,
       new Date(2022, 4, 4)
@@ -26,8 +34,10 @@ describe("BankAccountController class", () => {
     expect(mockHandleTransaction.makeTransaction).toHaveBeenCalledWith(
       "credit",
       10.0,
-      new Date(2022, 4, 4),
-      mockBankAccountModel
+      new Date(2022, 4, 4)
+    );
+    expect(mockBankAccountModel.saveToModel).toHaveBeenCalledWith(
+      transactionObject
     );
   });
 
