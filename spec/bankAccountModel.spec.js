@@ -7,6 +7,10 @@ describe("bankAccountModel class", () => {
     bankAccountModel = new BankAccountModel();
   });
 
+  it("returns an empty array with nothing saved", () => {
+    expect(bankAccountModel.loadFromModel()).toEqual([]);
+  });
+
   it("saves an object to the model", () => {
     const transactionObject = {
       amount: 10.0,

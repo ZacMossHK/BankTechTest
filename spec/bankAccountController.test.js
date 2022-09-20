@@ -68,6 +68,13 @@ describe("BankAccountController class", () => {
     ).toBe("05/05/2022 || || 80.00 || 20.00");
   });
 
+  it("returns just the statement headers if there are no transactions", () => {
+    mockBankAccountModel.loadFromModel.mockReturnValueOnce([]);
+    expect(bankAccountController.printStatement()).toBe(
+      "date || credit || debit || balance"
+    );
+  });
+
   it("prints the statement with one transaction", () => {
     const transactionObject = {
       amount: 10.0,
@@ -100,5 +107,33 @@ describe("BankAccountController class", () => {
       "date || credit || debit || balance\n05/05/2022 || || 80.00 || 20.00\n04/05/2022 || 100.00 || || 100.00"
     );
     expect(mockBankAccountModel.loadFromModel).toHaveBeenCalled();
+  });
+
+  it("throws an error if transaction type is not credit or debit", () => {
+    expect(() => {
+      bankAccountController.makeTransaction(
+        "balloon",
+        100.0,
+        new Date(2022, 4, 4)
+      );
+    }).toThrow(
+      new Error('Transaction type must be a string - "credit" or "debit"')
+    );
+  });
+
+  it("throws an error if transaction amount is not an integer or float", () => {
+    expect(() => {
+      bankAccountController.makeTransaction(
+        "credit",
+        "50",
+        new Date(2022, 4, 4)
+      );
+    }).toThrow(new Error("Transaction amount must be an integer or float"));
+  });
+
+  it("throws an error if transaction date is not a Date instance", () => {
+    expect(() => {
+      bankAccountController.makeTransaction("credit", 50, "4/4/2022");
+    }).toThrow(new Error("Transaction date must be a date instance"));
   });
 });

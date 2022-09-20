@@ -8,6 +8,7 @@ describe("Integration", () => {
     bankAccountModel = new BankAccountModel();
     bankAccountController = new BankAccountController(bankAccountModel);
   });
+
   it("prints the statement with one transaction", () => {
     bankAccountController.makeTransaction("credit", 10, new Date(2022, 4, 4));
     const result =
