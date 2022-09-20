@@ -168,4 +168,30 @@ describe("BankAccountController class", () => {
       "date || credit || debit || balance\n05/05/2022 || || 80.00 || 20.00\n04/05/2022 || 100.00 || || 100.00"
     );
   });
+
+  it("will allow the user to make further transactions after getting the statement", () => {
+    const transactionObject1 = {
+      amount: 100.0,
+      date: new Date(2022, 4, 4),
+      type: "credit",
+    };
+    const transactionObject2 = {
+      amount: 80.0,
+      date: new Date(2022, 4, 5),
+      type: "debit",
+    };
+    mockBankAccountModel.loadFromModel.mockReturnValueOnce([
+      transactionObject1,
+    ]);
+    expect(bankAccountController.getStatement()).toBe(
+      "date || credit || debit || balance\n04/05/2022 || 100.00 || || 100.00"
+    );
+    mockBankAccountModel.loadFromModel.mockReturnValueOnce([
+      transactionObject1,
+      transactionObject2,
+    ]);
+    expect(bankAccountController.getStatement()).toBe(
+      "date || credit || debit || balance\n05/05/2022 || || 80.00 || 20.00\n04/05/2022 || 100.00 || || 100.00"
+    );
+  });
 });

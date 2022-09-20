@@ -19,10 +19,10 @@ $ node
 > const BankAccountModel = require("./lib/bankAccountModel");
 > const BankAccountController = require("./lib/bankAccountController");
 > const controller = new BankAccountController(new BankAccountModel);
-> controller.makeTransaction("credit", 1000, new Date(2023, 0, 10))
-> controller.makeTransaction("credit", 2000, new Date(2023, 0, 13))
-> controller.makeTransaction("debit", 500, new Date(2023, 0, 14))
-> controller.getStatement()
+> controller.makeTransaction("credit", 1000, new Date(2023, 0, 10));
+> controller.makeTransaction("credit", 2000, new Date(2023, 0, 13));
+> controller.makeTransaction("debit", 500, new Date(2023, 0, 14));
+> controller.getStatement();
 =>
 date || credit || debit || balance
 14/01/2023 || || 500.00 || 2500.00
