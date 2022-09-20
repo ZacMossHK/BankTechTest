@@ -2,8 +2,24 @@
 
 To install:
 
+If npm doesn't exist:
+
 ```
+$ npm install -g npm
+```
+
+Then:
+
+```
+$ nvm use node
 $ npm install
+```
+
+To install Jest for testing:
+
+```
+$ npm add jest
+$ npm install -g jest
 ```
 
 To run tests:
