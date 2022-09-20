@@ -30,7 +30,9 @@ $ node
 10/01/2023 || 1000.00 || || 1000.00"
 ```
 
-The program is structured into two classses:
+I have appraoched building this program under the assumption that it will not be directly interacted with by the end user and is instead part of a larger program.
+
+The program is structured into two classes:
 
 BankAccountModel holds the account's transaction history.
 

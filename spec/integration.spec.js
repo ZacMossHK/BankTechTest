@@ -1,12 +1,11 @@
 const BankAccountController = require("../lib/bankAccountController");
 const BankAccountModel = require("../lib/bankAccountModel");
 
-let bankAccountModel, bankAccountController;
+let bankAccountController;
 
 describe("Integration", () => {
   beforeEach(() => {
-    bankAccountModel = new BankAccountModel();
-    bankAccountController = new BankAccountController(bankAccountModel);
+    bankAccountController = new BankAccountController(new BankAccountModel());
   });
 
   it("prints the statement with no transactions", () => {
