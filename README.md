@@ -61,9 +61,11 @@ PrintStatement returns a statement created from the user's transaction history i
 BankAccountController connects BankAccountModel to the other two classes.
 
 To make a transaction call `BankAccountController.makeNewTransaction(type, amount, date)`.
-Type must be a string, "credit" or "debit".
-Amount can be an integer or float.
-Date must be a date instance.
-Giving the wrong or missing arguments will invalidate the transaction and it will not be saved to the model.
+
+- Type must be a string, "credit" or "debit".
+- Amount can be an integer or float.
+- Date must be a date instance.
+
+  Giving the wrong or missing arguments will invalidate the transaction and it will not be saved to the model.
 
 To return the statement of transactions up to this point run `BankAccountController.printAccountStatement()`.
