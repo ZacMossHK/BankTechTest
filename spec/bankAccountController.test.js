@@ -19,54 +19,54 @@ describe("BankAccountController class", () => {
     );
   });
 
-  it("returns a credit transaction as a statement string", () => {
-    const transactionObject = {
-      amount: 100.0,
-      date: new Date(2022, 4, 4),
-      type: "credit",
-    };
-    expect(
-      bankAccountController.getSingleStatementTransactionString(
-        transactionObject
-      )
-    ).toBe("04/05/2022 || 100.00 || || 100.00");
-  });
+  // it("returns a credit transaction as a statement string", () => {
+  //   const transactionObject = {
+  //     amount: 100.0,
+  //     date: new Date(2022, 4, 4),
+  //     type: "credit",
+  //   };
+  //   expect(
+  //     bankAccountController.getSingleStatementTransactionString(
+  //       transactionObject
+  //     )
+  //   ).toBe("04/05/2022 || 100.00 || || 100.00");
+  // });
 
-  it("returns a debit transaction as a statement string", () => {
-    const transactionObject = {
-      amount: 80.0,
-      date: new Date(2022, 4, 5),
-      type: "debit",
-    };
-    expect(
-      bankAccountController.getSingleStatementTransactionString(
-        transactionObject
-      )
-    ).toBe("05/05/2022 || || 80.00 || -80.00");
-  });
+  // it("returns a debit transaction as a statement string", () => {
+  //   const transactionObject = {
+  //     amount: 80.0,
+  //     date: new Date(2022, 4, 5),
+  //     type: "debit",
+  //   };
+  //   expect(
+  //     bankAccountController.getSingleStatementTransactionString(
+  //       transactionObject
+  //     )
+  //   ).toBe("05/05/2022 || || 80.00 || -80.00");
+  // });
 
-  it("returns two debit transactions with a balance reflecting the transactions", () => {
-    const transactionObject1 = {
-      amount: 100.0,
-      date: new Date(2022, 4, 4),
-      type: "credit",
-    };
-    const transactionObject2 = {
-      amount: 80.0,
-      date: new Date(2022, 4, 5),
-      type: "debit",
-    };
-    expect(
-      bankAccountController.getSingleStatementTransactionString(
-        transactionObject1
-      )
-    ).toBe("04/05/2022 || 100.00 || || 100.00");
-    expect(
-      bankAccountController.getSingleStatementTransactionString(
-        transactionObject2
-      )
-    ).toBe("05/05/2022 || || 80.00 || 20.00");
-  });
+  // it("returns two debit transactions with a balance reflecting the transactions", () => {
+  //   const transactionObject1 = {
+  //     amount: 100.0,
+  //     date: new Date(2022, 4, 4),
+  //     type: "credit",
+  //   };
+  //   const transactionObject2 = {
+  //     amount: 80.0,
+  //     date: new Date(2022, 4, 5),
+  //     type: "debit",
+  //   };
+  //   expect(
+  //     bankAccountController.getSingleStatementTransactionString(
+  //       transactionObject1
+  //     )
+  //   ).toBe("04/05/2022 || 100.00 || || 100.00");
+  //   expect(
+  //     bankAccountController.getSingleStatementTransactionString(
+  //       transactionObject2
+  //     )
+  //   ).toBe("05/05/2022 || || 80.00 || 20.00");
+  // });
 
   it("returns just the statement headers if there are no transactions", () => {
     mockBankAccountModel.loadFromModel.mockReturnValueOnce([]);
@@ -149,25 +149,25 @@ describe("BankAccountController class", () => {
     }).toThrow(new Error("Missing transaction arguments"));
   });
 
-  it("will sort transactions by date when printing statement if transactions are not submitted in chronological order", () => {
-    const transactionObject1 = {
-      amount: 100.0,
-      date: new Date(2022, 4, 4),
-      type: "credit",
-    };
-    const transactionObject2 = {
-      amount: 80.0,
-      date: new Date(2022, 4, 5),
-      type: "debit",
-    };
-    mockBankAccountModel.loadFromModel.mockReturnValueOnce([
-      transactionObject2,
-      transactionObject1,
-    ]);
-    expect(bankAccountController.getStatement()).toBe(
-      "date || credit || debit || balance\n05/05/2022 || || 80.00 || 20.00\n04/05/2022 || 100.00 || || 100.00"
-    );
-  });
+  // it("will sort transactions by date when printing statement if transactions are not submitted in chronological order", () => {
+  //   const transactionObject1 = {
+  //     amount: 100.0,
+  //     date: new Date(2022, 4, 4),
+  //     type: "credit",
+  //   };
+  //   const transactionObject2 = {
+  //     amount: 80.0,
+  //     date: new Date(2022, 4, 5),
+  //     type: "debit",
+  //   };
+  //   mockBankAccountModel.loadFromModel.mockReturnValueOnce([
+  //     transactionObject2,
+  //     transactionObject1,
+  //   ]);
+  //   expect(bankAccountController.getStatement()).toBe(
+  //     "date || credit || debit || balance\n05/05/2022 || || 80.00 || 20.00\n04/05/2022 || 100.00 || || 100.00"
+  //   );
+  // });
 
   it("will allow the user to make further transactions after getting the statement", () => {
     const transactionObject1 = {
