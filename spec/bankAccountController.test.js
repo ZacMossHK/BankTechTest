@@ -137,6 +137,18 @@ describe("BankAccountController class", () => {
     }).toThrow(new Error("Transaction date must be a date instance"));
   });
 
+  it("throws an error if any transaction arguments are missing", () => {
+    expect(() => {
+      bankAccountController.makeTransaction("credit", 50);
+    }).toThrow(new Error("Missing transaction arguments"));
+    expect(() => {
+      bankAccountController.makeTransaction("credit");
+    }).toThrow(new Error("Missing transaction arguments"));
+    expect(() => {
+      bankAccountController.makeTransaction();
+    }).toThrow(new Error("Missing transaction arguments"));
+  });
+
   it("will sort transactions by date when printing statement if transactions are not submitted in chronological order", () => {
     const transactionObject1 = {
       amount: 100.0,
