@@ -12,6 +12,31 @@ describe("CreateStatement class", () => {
     );
   });
 
+  it("returns a date string from a date instance", () => {
+    expect(printStatement.getDateString(new Date(2022, 0, 1))).toBe(
+      "01/01/2022"
+    );
+  });
+
+  it("returns a transaction as a string", () => {
+    const transactionObject1 = {
+      amount: 80.0,
+      date: new Date(2022, 4, 5),
+      type: "credit",
+    };
+    expect(
+      printStatement.getTransactionStringAndUpdateBalance(transactionObject1)
+    ).toBe("80.00 ||");
+    const transactionObject2 = {
+      amount: 80.0,
+      date: new Date(2022, 4, 5),
+      type: "debit",
+    };
+    expect(
+      printStatement.getTransactionStringAndUpdateBalance(transactionObject2)
+    ).toBe("|| 80.00");
+  });
+
   it("returns a debit transaction as a statement string", () => {
     const transactionObject = {
       amount: 80.0,
@@ -51,6 +76,39 @@ describe("CreateStatement class", () => {
     expect(
       printStatement.getSingleStatementTransactionString(transactionObject2)
     ).toBe("05/05/2022 || || 80.00 || 20.00");
+  });
+
+  it("gets a single transaction in an array", () => {
+    const transactionObject = {
+      amount: 100.0,
+      date: new Date(2022, 4, 4),
+      type: "credit",
+    };
+    expect(
+      printStatement.getTransactionsAsStatementArray([transactionObject])
+    ).toEqual(["04/05/2022 || 100.00 || || 100.00"]);
+  });
+
+  it("gets multiple transactions in an array", () => {
+    const transactionObject1 = {
+      amount: 100.0,
+      date: new Date(2022, 4, 4),
+      type: "credit",
+    };
+    const transactionObject2 = {
+      amount: 80.0,
+      date: new Date(2022, 4, 5),
+      type: "debit",
+    };
+    expect(
+      printStatement.getTransactionsAsStatementArray([
+        transactionObject1,
+        transactionObject2,
+      ])
+    ).toEqual([
+      "05/05/2022 || || 80.00 || 20.00",
+      "04/05/2022 || 100.00 || || 100.00",
+    ]);
   });
 
   it("prints the statement with one transaction", () => {
