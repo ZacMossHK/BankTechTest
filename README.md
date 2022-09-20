@@ -40,7 +40,7 @@ BankAccountModel holds the user's transaction history in the form of objects in 
 
 HandleTransaction returns validated transactions as objects containing the type of transaction, amount, and transaction date.
 
-CreateStatement returns a statement created from the user's transaction history in the form of a string.
+PrintStatement returns a statement created from the user's transaction history in the form of a string.
 
 BankAccountController connects BankAccountModel to the other two classes.
 
