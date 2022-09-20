@@ -22,7 +22,7 @@ $ node
 > controller.makeTransaction("credit", 1000, new Date(2023, 0, 10))
 > controller.makeTransaction("credit", 2000, new Date(2023, 0, 13))
 > controller.makeTransaction("debit", 500, new Date(2023, 0, 14))
-> controller.printStatement()
+> controller.getStatement()
 =>
 date || credit || debit || balance
 14/01/2023 || || 500.00 || 2500.00
@@ -41,4 +41,4 @@ Type must be a string, "credit" or "debit".
 Amount can be an integer or float.
 Date must be a date instance.
 
-To print the statement of transactions up to this point run BankAccountController.printStatement().
+To print the statement of transactions up to this point run BankAccountController.getStatement().

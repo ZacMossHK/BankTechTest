@@ -26,7 +26,7 @@ describe("BankAccountController class", () => {
       type: "credit",
     };
     expect(
-      bankAccountController.makeTransactionIntoStatementString(
+      bankAccountController.getSingleStatementTransactionString(
         transactionObject
       )
     ).toBe("04/05/2022 || 100.00 || || 100.00");
@@ -39,7 +39,7 @@ describe("BankAccountController class", () => {
       type: "debit",
     };
     expect(
-      bankAccountController.makeTransactionIntoStatementString(
+      bankAccountController.getSingleStatementTransactionString(
         transactionObject
       )
     ).toBe("05/05/2022 || || 80.00 || -80.00");
@@ -57,12 +57,12 @@ describe("BankAccountController class", () => {
       type: "debit",
     };
     expect(
-      bankAccountController.makeTransactionIntoStatementString(
+      bankAccountController.getSingleStatementTransactionString(
         transactionObject1
       )
     ).toBe("04/05/2022 || 100.00 || || 100.00");
     expect(
-      bankAccountController.makeTransactionIntoStatementString(
+      bankAccountController.getSingleStatementTransactionString(
         transactionObject2
       )
     ).toBe("05/05/2022 || || 80.00 || 20.00");
@@ -70,7 +70,7 @@ describe("BankAccountController class", () => {
 
   it("returns just the statement headers if there are no transactions", () => {
     mockBankAccountModel.loadFromModel.mockReturnValueOnce([]);
-    expect(bankAccountController.printStatement()).toBe(
+    expect(bankAccountController.getStatement()).toBe(
       "date || credit || debit || balance"
     );
   });
@@ -82,7 +82,7 @@ describe("BankAccountController class", () => {
       type: "credit",
     };
     mockBankAccountModel.loadFromModel.mockReturnValueOnce([transactionObject]);
-    expect(bankAccountController.printStatement()).toBe(
+    expect(bankAccountController.getStatement()).toBe(
       "date || credit || debit || balance\n04/05/2022 || 10.00 || || 10.00"
     );
     expect(mockBankAccountModel.loadFromModel).toHaveBeenCalled();
@@ -103,7 +103,7 @@ describe("BankAccountController class", () => {
       transactionObject1,
       transactionObject2,
     ]);
-    expect(bankAccountController.printStatement()).toBe(
+    expect(bankAccountController.getStatement()).toBe(
       "date || credit || debit || balance\n05/05/2022 || || 80.00 || 20.00\n04/05/2022 || 100.00 || || 100.00"
     );
     expect(mockBankAccountModel.loadFromModel).toHaveBeenCalled();
@@ -152,7 +152,7 @@ describe("BankAccountController class", () => {
       transactionObject2,
       transactionObject1,
     ]);
-    expect(bankAccountController.printStatement()).toBe(
+    expect(bankAccountController.getStatement()).toBe(
       "date || credit || debit || balance\n05/05/2022 || || 80.00 || 20.00\n04/05/2022 || 100.00 || || 100.00"
     );
   });
