@@ -1,7 +1,7 @@
 const BankAccountController = require("../lib/bankAccountController");
 const BankAccountModel = require("../lib/bankAccountModel");
-const CreateStatement = require("../lib/createStatement");
-const TransactionHandler = require("../lib/transactionHandler");
+const PrintStatement = require("../lib/printStatement");
+const HandleTransaction = require("../lib/handleTransaction");
 
 let controller;
 
@@ -9,13 +9,13 @@ describe("Integration", () => {
   beforeEach(() => {
     controller = new BankAccountController(
       new BankAccountModel(),
-      new CreateStatement(),
-      new TransactionHandler()
+      new PrintStatement(),
+      new HandleTransaction()
     );
   });
 
   it("prints just the statement headers if there are no transactions", () => {
-    expect(controller.printStatement()).toBe(
+    expect(controller.printAccountStatement()).toBe(
       "date || credit || debit || balance"
     );
   });
@@ -24,7 +24,7 @@ describe("Integration", () => {
     controller.makeNewTransaction("credit", 10, new Date(2022, 4, 4));
     const result =
       "date || credit || debit || balance\n04/05/2022 || 10.00 || || 10.00";
-    expect(controller.printStatement()).toBe(result);
+    expect(controller.printAccountStatement()).toBe(result);
   });
 
   it("prints the statement with three transactions", () => {
@@ -33,7 +33,7 @@ describe("Integration", () => {
     controller.makeNewTransaction("debit", 500, new Date(2023, 0, 14));
     const result =
       "date || credit || debit || balance\n14/01/2023 || || 500.00 || 2500.00\n13/01/2023 || 2000.00 || || 3000.00\n10/01/2023 || 1000.00 || || 1000.00";
-    expect(controller.printStatement()).toBe(result);
+    expect(controller.printAccountStatement()).toBe(result);
   });
 
   it("prints the statement in the correct chronological order when transactions are not submitted in order", () => {
@@ -42,7 +42,7 @@ describe("Integration", () => {
     controller.makeNewTransaction("debit", 500, new Date(2023, 0, 14));
     const result =
       "date || credit || debit || balance\n14/01/2023 || || 500.00 || 2500.00\n13/01/2023 || 2000.00 || || 3000.00\n10/01/2023 || 1000.00 || || 1000.00";
-    expect(controller.printStatement()).toBe(result);
+    expect(controller.printAccountStatement()).toBe(result);
   });
 
   it("throws an error if the transaction arguments are invalid", () => {
@@ -67,7 +67,7 @@ describe("Integration", () => {
     }
     const result =
       "date || credit || debit || balance\n04/05/2022 || 10.00 || || 10.00";
-    expect(controller.printStatement()).toBe(result);
+    expect(controller.printAccountStatement()).toBe(result);
   });
 
   it("throws an error if any transaction arguments are missing", () => {

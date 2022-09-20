@@ -2,17 +2,17 @@ const BankAccountController = require("../lib/bankAccountController");
 
 let bankAccountController,
   mockBankAccountModel,
-  mockCreateStatement,
+  mockPrintStatement,
   mockHandleTransaction;
 
 describe("BankAccountController class", () => {
   beforeEach(() => {
     mockBankAccountModel = { saveToModel: jest.fn(), loadFromModel: jest.fn() };
-    mockCreateStatement = { getStatement: jest.fn() };
+    mockPrintStatement = { getStatement: jest.fn() };
     mockHandleTransaction = { makeTransaction: jest.fn() };
     bankAccountController = new BankAccountController(
       mockBankAccountModel,
-      mockCreateStatement,
+      mockPrintStatement,
       mockHandleTransaction
     );
   });
@@ -48,13 +48,13 @@ describe("BankAccountController class", () => {
       type: "credit",
     };
     mockBankAccountModel.loadFromModel.mockReturnValueOnce([transactionObject]);
-    mockCreateStatement.getStatement.mockReturnValueOnce(
+    mockPrintStatement.getStatement.mockReturnValueOnce(
       "date || credit || debit || balance\n04/05/2022 || 10.00 || || 10.00"
     );
-    expect(bankAccountController.printStatement()).toBe(
+    expect(bankAccountController.printAccountStatement()).toBe(
       "date || credit || debit || balance\n04/05/2022 || 10.00 || || 10.00"
     );
-    expect(mockCreateStatement.getStatement).toHaveBeenCalledWith([
+    expect(mockPrintStatement.getStatement).toHaveBeenCalledWith([
       transactionObject,
     ]);
   });
