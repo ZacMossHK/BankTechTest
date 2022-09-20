@@ -136,4 +136,24 @@ describe("BankAccountController class", () => {
       bankAccountController.makeTransaction("credit", 50, "4/4/2022");
     }).toThrow(new Error("Transaction date must be a date instance"));
   });
+
+  it("will sort transactions by date when printing statement if transactions are not submitted in chronological order", () => {
+    const transactionObject1 = {
+      amount: 100.0,
+      date: new Date(2022, 4, 4),
+      type: "credit",
+    };
+    const transactionObject2 = {
+      amount: 80.0,
+      date: new Date(2022, 4, 5),
+      type: "debit",
+    };
+    mockBankAccountModel.loadFromModel.mockReturnValueOnce([
+      transactionObject2,
+      transactionObject1,
+    ]);
+    expect(bankAccountController.printStatement()).toBe(
+      "date || credit || debit || balance\n05/05/2022 || || 80.00 || 20.00\n04/05/2022 || 100.00 || || 100.00"
+    );
+  });
 });
