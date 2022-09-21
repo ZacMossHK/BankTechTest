@@ -2,7 +2,7 @@ const PrintStatement = require("../lib/printStatement");
 
 let printStatement;
 
-describe("CreateStatement class", () => {
+describe("PrintStatement class", () => {
   beforeEach(() => {
     printStatement = new PrintStatement();
   });
