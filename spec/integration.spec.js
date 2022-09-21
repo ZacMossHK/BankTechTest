@@ -53,7 +53,9 @@ describe("Integration", () => {
     );
     expect(() => {
       controller.makeNewTransaction("credit", "50", new Date(2022, 4, 4));
-    }).toThrow(new Error("Transaction amount must be an integer or float"));
+    }).toThrow(
+      new Error("Transaction amount must be an integer or float greater than 0")
+    );
     expect(() => {
       controller.makeNewTransaction("credit", 50, "4/4/2022");
     }).toThrow(new Error("Transaction date must be a date instance"));
