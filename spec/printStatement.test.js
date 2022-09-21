@@ -24,17 +24,35 @@ describe("PrintStatement class", () => {
       date: new Date(2022, 4, 5),
       type: "credit",
     };
-    expect(
-      printStatement.getTransactionStringAndUpdateBalance(transactionObject1)
-    ).toBe("80.00 ||");
+    expect(printStatement.getTransactionString(transactionObject1)).toBe(
+      "80.00 ||"
+    );
     const transactionObject2 = {
       amount: 80.0,
       date: new Date(2022, 4, 5),
       type: "debit",
     };
-    expect(
-      printStatement.getTransactionStringAndUpdateBalance(transactionObject2)
-    ).toBe("|| 80.00");
+    expect(printStatement.getTransactionString(transactionObject2)).toBe(
+      "|| 80.00"
+    );
+  });
+
+  it("returns a positive balance with credit", () => {
+    const transactionObject = {
+      amount: 80.0,
+      date: new Date(2022, 4, 5),
+      type: "credit",
+    };
+    expect(printStatement.updateBalance(transactionObject)).toBe(80);
+  });
+
+  it("returns a negative balance with debit", () => {
+    const transactionObject = {
+      amount: 80.0,
+      date: new Date(2022, 4, 5),
+      type: "debit",
+    };
+    expect(printStatement.updateBalance(transactionObject)).toBe(-80);
   });
 
   it("returns a debit transaction as a statement string", () => {
