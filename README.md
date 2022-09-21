@@ -33,10 +33,10 @@ To run the program:
 ```
 $ node
 > const BankAccountModel = require("./lib/bankAccountModel");
-> const CreateStatement = require("./lib/createStatement");
+> const PrintStatement = require("./lib/printStatement");
 > const HandleTransaction = require("./lib/handleTransaction");
 > const BankAccountController = require("./lib/bankAccountController");
-> const controller = new BankAccountController(new BankAccountModel(), new CreateStatement(), new HandleTransaction());
+> const controller = new BankAccountController(new BankAccountModel(), new PrintStatement(), new HandleTransaction());
 > controller.makeNewTransaction("credit", 1000, new Date(2023, 0, 10));
 > controller.makeNewTransaction("credit", 2000, new Date(2023, 0, 13));
 > controller.makeNewTransaction("debit", 500, new Date(2023, 0, 14));
@@ -66,6 +66,6 @@ To make a transaction call `BankAccountController.makeNewTransaction(type, amoun
 - Amount can be an integer or float.
 - Date must be a date instance.
 
-  Giving the wrong or missing arguments will invalidate the transaction and it will not be saved to the model.
+Giving the wrong or missing arguments will invalidate the transaction and it will not be saved to the model.
 
 To return the statement of transactions up to this point run `BankAccountController.printAccountStatement()`.
