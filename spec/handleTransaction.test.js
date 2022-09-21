@@ -26,19 +26,22 @@ describe("TransactionHandler class", () => {
     );
   });
 
-  it("throws an error if transaction amount is not an integer or float", () => {
+  it("throws an error if transaction amount is not an integer or float or more than 0", () => {
     expect(() => {
       handleTransaction.makeTransaction("credit", "50", new Date(2022, 4, 4));
-    }).toThrow(new Error("Transaction amount must be an integer or float"));
-  });
-
-  it("throws an error if amount is not more than 0", () => {
+    }).toThrow(
+      new Error("Transaction amount must be an integer or float greater than 0")
+    );
     expect(() => {
       handleTransaction.makeTransaction("credit", 0, new Date(2022, 4, 4));
-    }).toThrow(new Error("Transaction amount must be greater than 0"));
+    }).toThrow(
+      new Error("Transaction amount must be an integer or float greater than 0")
+    );
     expect(() => {
       handleTransaction.makeTransaction("credit", -1, new Date(2022, 4, 4));
-    }).toThrow(new Error("Transaction amount must be greater than 0"));
+    }).toThrow(
+      new Error("Transaction amount must be an integer or float greater than 0")
+    );
   });
 
   it("throws an error if transaction date is not a Date instance", () => {
